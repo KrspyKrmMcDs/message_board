@@ -6,13 +6,19 @@ export class WebService {
 
   BASE_URL = 'http://localhost:63145/api';
 
-  constructor(private http: HttpClient) {}
+  messages = [];
 
-  getMessages() {
-    return this.http.get(this.BASE_URL + '/messages').toPromise();
+  constructor(private http: HttpClient) {
+    this.getMessages();
   }
 
-  postMessage(message) {
-    return this.http.post(this.BASE_URL, message + '/messages').toPromise();
+  async getMessages() {
+   const response: any = await this.http.get(this.BASE_URL + '/messages').toPromise();
+   this.messages = response;
+  }
+
+  async postMessage(message) {
+    const response: any = await this.http.post(this.BASE_URL + '/messages', message).toPromise();
+    this.messages.push(response);
   }
 }

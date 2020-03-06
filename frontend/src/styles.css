@@ -1,7 +1,8 @@
 /* You can add global styles to this file, and also import other style files */
+@import '@angular/material/prebuilt-themes/purple-green.css';
 
 html, body { height: 100%; }
-h1 {color: blue; padding: 20px 0px 0px 50px;}
+h1 { background: #424242; color: whitesmoke; padding: 20px 0px 20px 50px; font-size: large;}
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 
 .card {
