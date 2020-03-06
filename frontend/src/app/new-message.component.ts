@@ -9,5 +9,12 @@ export class NewMessageComponent {
 
   constructor(private webService: WebService) {}
 
+  message = {
+    owner: '',
+    text: ''
+  };
 
+  post() {
+    console.log(this.message);
+  }
 }

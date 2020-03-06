@@ -7,6 +7,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { HttpClientModule } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { FormsModule } from '@angular/forms';
 
 import { AppComponent } from './app.component';
 import { MessagesComponent } from './messages.component';
@@ -26,6 +27,7 @@ import { WebService } from './web.service';
     MatFormFieldModule,
     MatInputModule,
     HttpClientModule,
+    FormsModule
   ],
   providers: [WebService],
   bootstrap: [AppComponent]
