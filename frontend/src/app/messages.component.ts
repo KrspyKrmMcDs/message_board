@@ -9,13 +9,11 @@ export class MessagesComponent implements OnInit {
 
   constructor(private webService: WebService) {}
 
-  messages = [
-    { text: 'some text', owner: 'Tim' },
-    { text: 'other message', owner: 'Jane' }
-  ];
+  messages = [];
 
   async ngOnInit() {
-    const response = await this.webService.getMessages();
-    console.log(response.json());
+    const response: any = await this.webService.getMessages();
+    this.messages = response;
+    console.log(response);
   }
 }
