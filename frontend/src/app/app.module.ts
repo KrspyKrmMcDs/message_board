@@ -1,8 +1,8 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { RouterModule } from '@angular/router';
-import { NgModule, Component } from '@angular/core';
+import { NgModule } from '@angular/core';
 import { MatCardModule } from '@angular/material/card';
-import {MatButtonModule} from '@angular/material/button';
+import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
@@ -18,10 +18,20 @@ import { MessagesComponent } from './messages.component';
 import { NavComponent } from './nav.component';
 import { WebService } from './web.service';
 
-const routes = [{
-  path: '',
-  component: HomeComponent
-}];
+const routes = [
+  {
+    path: '',
+    component: HomeComponent
+  },
+  {
+    path: 'messages',
+    component: MessagesComponent
+  },
+  {
+    path: 'messages/:name',
+    component: MessagesComponent
+  }
+];
 
 @NgModule({
   declarations: [
@@ -47,4 +57,4 @@ const routes = [{
   providers: [WebService],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {}

@@ -20,6 +20,12 @@ api.get('/messages', (req, res) => {
     res.json(messages);
 })
 
+api.get('/messages/:user', (req, res) => {
+    const user = req.params.user;
+    const result = messages.filter(message => message.owner == user);
+    res.json(result);
+})
+
 api.post('/messages', (req, res) => {
     messages.push(req.body);
     res.json(req.body);
