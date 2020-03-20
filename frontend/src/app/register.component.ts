@@ -1,3 +1,4 @@
+import { AuthService } from './auth.service';
 import { Component } from '@angular/core';
 import { NavComponent } from './nav.component';
 import { FormBuilder, Validators } from '@angular/forms';
@@ -15,7 +16,7 @@ import { FormBuilder, Validators } from '@angular/forms';
 export class RegisterComponent {
   form;
 
-  constructor(private fb: FormBuilder) {
+  constructor(private fb: FormBuilder, private auth: AuthService) {
     this.form = fb.group({
       firstName: ['', Validators.required],
       lastName: ['', Validators.required],
@@ -27,6 +28,7 @@ export class RegisterComponent {
 
   onSubmit() {
     console.log(this.form.errors);
+    this.auth.register(this.form.value);
   }
 
   isValid(control) {
@@ -44,6 +46,7 @@ function matchingFields(field1, field2) {
 
 function emailValid() {
   return control => {
+    // tslint:disable-next-line: max-line-length
     const regex = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 
     return regex.test(control.value) ? null : { invalidEmail: true };

@@ -1,3 +1,4 @@
+import { AuthService } from './auth.service';
 import { RegisterComponent } from './register.component';
 import { BrowserModule } from '@angular/platform-browser';
 import { RouterModule } from '@angular/router';
@@ -61,7 +62,7 @@ const routes = [
     ReactiveFormsModule,
     RouterModule.forRoot(routes)
   ],
-  providers: [WebService],
+  providers: [WebService, AuthService],
   bootstrap: [AppComponent]
 })
 export class AppModule {}
