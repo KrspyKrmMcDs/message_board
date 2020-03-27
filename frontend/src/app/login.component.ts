@@ -2,10 +2,10 @@ import { Component } from '@angular/core';
 import { AuthService } from './auth.service';
 
 @Component({
-  selector: 'app-nav',
-  templateUrl: './nav.component.html'
+  selector: 'app-login',
+  template: ''
 })
-export class NavComponent {
+export class LoginComponent {
 
   constructor(public auth: AuthService) {}
 

@@ -19,6 +19,7 @@ import { AppComponent } from './app.component';
 import { MessagesComponent } from './messages.component';
 import { NavComponent } from './nav.component';
 import { WebService } from './web.service';
+import { LoginComponent } from './login.component';
 
 const routes = [
   {
@@ -36,6 +37,10 @@ const routes = [
   {
     path: 'register',
     component: RegisterComponent
+  },
+  {
+    path: 'login',
+    component: LoginComponent
   }
 ];
 
@@ -46,7 +51,8 @@ const routes = [
     NewMessageComponent,
     NavComponent,
     HomeComponent,
-    RegisterComponent
+    RegisterComponent,
+    LoginComponent
   ],
   imports: [
     BrowserModule,
