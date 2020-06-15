@@ -20,6 +20,7 @@ import { MessagesComponent } from './messages.component';
 import { NavComponent } from './nav.component';
 import { WebService } from './web.service';
 import { LoginComponent } from './login.component';
+import { UserComponent } from './user.component';
 
 const routes = [
   {
@@ -42,6 +43,10 @@ const routes = [
     path: 'login',
     component: LoginComponent
   }
+  {
+    path: 'user',
+    component: UserComponent
+  }
 ];
 
 @NgModule({
@@ -52,7 +57,8 @@ const routes = [
     NavComponent,
     HomeComponent,
     RegisterComponent,
-    LoginComponent
+    LoginComponent,
+    UserComponent
   ],
   imports: [
     BrowserModule,

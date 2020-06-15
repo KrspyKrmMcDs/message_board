@@ -1,3 +1,4 @@
+import { AuthService } from './auth.service';
 import { WebService } from './web.service';
 import { Component } from '@angular/core';
 
@@ -7,10 +8,10 @@ import { Component } from '@angular/core';
 })
 export class NewMessageComponent {
 
-  constructor(private webService: WebService) {}
+  constructor(private webService: WebService, private auth: AuthService) {}
 
   message = {
-    owner: '',
+    owner: this.auth.name,
     text: ''
   };
 

@@ -2,6 +2,8 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Subject } from 'rxjs';
+import { map } from 'rxjs/operators';
+import { AuthService } from './auth.service';
 
 @Injectable()
 export class WebService {
@@ -13,7 +15,7 @@ export class WebService {
 
   messages$ = this.messageSubject.asObservable();
 
-  constructor(private http: HttpClient, private sb: MatSnackBar) {
+  constructor(private http: HttpClient, private sb: MatSnackBar, private auth: AuthService) {
     this.getMessages(null);
   }
 
@@ -40,6 +42,14 @@ export class WebService {
     } catch (error) {
       this.handleError('Unable to post message');
     }
+  }
+
+  getUser() {
+    return this.http.get(this.BASE_URL + 'users/me', this.auth.tokenHeader).pipe(map(res => res));
+  }
+
+  saveUser(userData) {
+    return this.http.post(this.BASE_URL + 'users/me', this.auth.tokenHeader).pipe(map(res => res));
   }
 
   private handleError(error: string) {

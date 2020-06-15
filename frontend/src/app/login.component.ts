@@ -3,10 +3,19 @@ import { AuthService } from './auth.service';
 
 @Component({
   selector: 'app-login',
-  template: ''
+  templateUrl: './login.component.html'
 })
 export class LoginComponent {
 
   constructor(public auth: AuthService) {}
+
+  loginData = {
+    email: '',
+    password: ''
+  };
+
+  login() {
+    this.auth.login(this.loginData);
+  }
 
 }

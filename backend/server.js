@@ -8,12 +8,12 @@ var messages = [
     { text: 'other message', owner: 'Jane' },
 ];
 
-var users = [];
+var users = [{ firstName: 'a', email: 'a@gmail.com', password: 'a', id: 0}];
 
 app.use(bodyParser.json());
 app.use((req, res, next) => {
     res.header("Access-Control-Allow-Origin", "*");
-    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept, Authorization");
     next();
 })
 
@@ -35,15 +35,69 @@ api.post('/messages', (req, res) => {
     res.json(req.body);
 })
 
+api.get('/users/me', checkAuthenticated, (req, res) => {
+    res.json(users[req.user]);
+})
+
+api.post('/users/me', checkAuthenticated, (req, res) => {
+    var user = users[req.user];
+
+    user.firstName = req.body.firstName;
+    user.lastName = req.body.lastName;
+
+    res.json(user);
+})
+
+auth.post('/login', (req, res) => {
+    const user = users.find(user => user.email == req.body.email);
+
+    if (!user) {
+        sendAuthError(res);
+    }
+
+    if (user.password == req.body.password) {
+        sendToken(user, res);
+    } else {
+        sendAuthError(res);
+    }
+
+})
+
 auth.post('/register', (req, res) => {
     var index = users.push(req.body) - 1;
 
     var user = users[index];
     user.id = index;
 
-    var token = jwt.sign(user.id, '123');
-    res.json({firstName: user.firstName, token});
+    sendToken(user, res);
 })
+
+function sendToken(user, res) {
+    const token = jwt.sign(user.id, '123');
+    res.json({ firstName: user.firstName, token });
+}
+
+function sendAuthError(res) {
+    return res.json({ success: false, message: 'email or password incorrect' });
+}
+
+function checkAuthenticated(req, res, next) {
+    if(!req.header('authorization')) {
+        return res.status(401).send({message: 'Unauthorized request. Missing authentication header'});
+    }
+     
+    var token = req.header('authorization').split(' ')[1];
+
+    var payload = jwt.decode('123');
+
+    if(!payload) {
+        return res.status(401).send({message: 'Unauthorized requested.  Authentication header invalid'});
+    }
+
+    req.user = payload;
+
+    next();
+}
 
 app.use('/api', api);
 app.use('/auth', auth);
