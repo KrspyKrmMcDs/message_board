@@ -46,7 +46,7 @@ export class WebService {
 
   getUser() {
     return this.http.get(this.BASE_URL + '/users/me', this.auth.tokenHeader).pipe(map(res => res));
-  }
+  }~
 
   saveUser(userData) {
     return this.http.post(this.BASE_URL + '/users/me', this.auth.tokenHeader).pipe(map(res => res));
