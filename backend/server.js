@@ -82,16 +82,16 @@ function sendAuthError(res) {
 }
 
 function checkAuthenticated(req, res, next) {
-    if(!req.header('authorization')) {
+    if(!req.header('Authorization')) {
         return res.status(401).send({message: 'Unauthorized request. Missing authentication header'});
     }
      
-    var token = req.header('authorization').split(' ')[1];
+    var token = req.header('Authorization').split(' ')[1];
 
-    var payload = jwt.decode('123');
+    var payload = jwt.decode(token, '123');
 
     if(!payload) {
-        return res.status(401).send({message: 'Unauthorized requested.  Authentication header invalid'});
+        return res.status(401).send({message: 'Unauthorized requested. Authentication header invalid'});
     }
 
     req.user = payload;

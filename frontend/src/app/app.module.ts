@@ -42,7 +42,7 @@ const routes = [
   {
     path: 'login',
     component: LoginComponent
-  }
+  },
   {
     path: 'user',
     component: UserComponent

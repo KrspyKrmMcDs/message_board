@@ -11,6 +11,16 @@ export class AuthService {
 
   constructor(private http: HttpClient, private router: Router) {}
 
+  httpOptions = {
+    headers: new HttpHeaders(
+    {
+      Authorization: 'Bearer ' + localStorage.getItem(this.TOKEN_KEY),
+      Accept: 'arraybuffer, */*',
+      'Content-Type': 'application/json'
+    }),
+    responseType: 'arraybuffer' as 'json'
+  };
+
   get name() {
     return localStorage.getItem(this.NAME_KEY);
   }
@@ -20,8 +30,7 @@ export class AuthService {
   }
 
   get tokenHeader() {
-    const header = new HttpHeaders({Authorization: 'Bearer ' + localStorage.getItem(this.TOKEN_KEY)});
-    return new HttpRequest('HEAD', this.BASE_URL, {headers: header, responseType: 'arraybuffer'});
+    return new HttpRequest('HEAD', this.BASE_URL, this.httpOptions);
   }
 
   login(loginData) {
@@ -43,7 +52,7 @@ export class AuthService {
     localStorage.removeItem(this.NAME_KEY);
   }
 
-  authenticate(res) {
+  authenticate(res: object) {
     const authResponse = res;
 
     if (!authResponse[`token`]) {
